@@ -10,10 +10,11 @@ import (
 
 // Item describes a RedditNews item.
 type Item struct {
-	Author string `json:"author"`
-	Score  int    `json:"score"`
-	URL    string `json:"url"`
-	Title  string `json:"title"`
+	Author    string ` json:"author"    `
+	Score     int    ` json:"score"     `
+	URL       string ` json:"url"       `
+	Permalink string ` json:"permalink" `
+	Title     string ` json:"title"     `
 }
 
 type response struct {
@@ -52,5 +53,5 @@ func Get(reddit string) ([]Item, error) {
 }
 
 func (i Item) String() string {
-  return fmt.Sprintf( "[%d] %s (%s)\nAuthor: %s", i.Score, i.Title, i.URL, i.Author)
+  return fmt.Sprintf( "[%d] %s (%s)\nPermalink: %s\nAuthor: %s\n", i.Score, i.Title, i.URL, i.Permalink, i.Author)
 }

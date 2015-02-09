@@ -2,11 +2,9 @@
 package redditnews
 
 import (
-	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"log"
 	"net/http"
 )
 
@@ -60,21 +58,4 @@ func (i Item) String() string {
 		i.Score,
 		i.URL,
 		i.Title)
-}
-
-// Email prepares the body of an email
-func Email() string {
-	var buffer bytes.Buffer
-
-	items, err := Get("golang")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// Need to build strings from items
-	for _, item := range items {
-		buffer.WriteString(item.String())
-	}
-
-	return buffer.String()
 }

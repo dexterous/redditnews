@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/SatishTalim/redditnews"
+	"github.com/dexterous/redditnews"
 	"log"
 	"net/smtp"
 )

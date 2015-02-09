@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/SatishTalim/redditnews"
+	"github.com/dexterous/redditnews"
 	"log"
 )
 

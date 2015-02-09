@@ -19,36 +19,36 @@ type Item struct {
 }
 
 type response struct {
-        Data1 struct {
-                Children []struct {
-                        Data2 Item `json:"data"`
-                } `json:"children"`
-        } `json:"data"`
+	Data1 struct {
+		Children []struct {
+			Data2 Item `json:"data"`
+		} `json:"children"`
+	} `json:"data"`
 }
 
 // Get fetches the most recent Items posted to the specified subreddit.
 func Get(reddit string) ([]Item, error) {
-        url := fmt.Sprintf("http://reddit.com/r/%s.json", reddit)
+	url := fmt.Sprintf("http://reddit.com/r/%s.json", reddit)
 	resp, err := http.Get(url)
 	if err != nil {
-	        return nil, err
+		return nil, err
 	}
 
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-	        return nil, errors.New(resp.Status)
+		return nil, errors.New(resp.Status)
 	}
 
 	r := new(response)
 	err = json.NewDecoder(resp.Body).Decode(r)
 	if err != nil {
-	        return nil, err
+		return nil, err
 	}
 
 	items := make([]Item, len(r.Data1.Children))
 	for i, child := range r.Data1.Children {
-	        items[i] = child.Data2
+		items[i] = child.Data2
 	}
 	return items, nil
 }
@@ -68,14 +68,13 @@ func Email() string {
 
 	items, err := Get("golang")
 	if err != nil {
-	        log.Fatal(err)
+		log.Fatal(err)
 	}
 
 	// Need to build strings from items
 	for _, item := range items {
-	        buffer.WriteString(item.String())
+		buffer.WriteString(item.String())
 	}
 
 	return buffer.String()
 }
-

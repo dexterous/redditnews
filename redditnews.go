@@ -52,10 +52,5 @@ func Get(reddit string) ([]Item, error) {
 }
 
 func (i Item) String() string {
-	return fmt.Sprintf(
-		"Author: %s\nScore: %d\nURL: %s\nTitle: %s\n\n",
-		i.Author,
-		i.Score,
-		i.URL,
-		i.Title)
+  return fmt.Sprintf( "[%d] %s (%s)\nAuthor: %s", i.Score, i.Title, i.URL, i.Author)
 }

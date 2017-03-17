@@ -28,7 +28,15 @@ type response struct {
 // Get fetches the most recent Items posted to the specified subreddit.
 func Get(reddit string) ([]Item, error) {
 	url := fmt.Sprintf("http://reddit.com/r/%s.json", reddit)
-	resp, err := http.Get(url)
+
+  req, err := http.NewRequest("GET", url, nil)
+  if err != nil {
+    return nil, err
+  }
+  req.Header.Set("User-Agent", "golang-reddit-gopher-0.1")
+
+  client := &http.Client{}
+	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}

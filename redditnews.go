@@ -18,11 +18,11 @@ type Item struct {
 }
 
 type response struct {
-	Data1 struct {
+	Data struct {
 		Children []struct {
-			Data2 Item `json:"data"`
-		} `json:"children"`
-	} `json:"data"`
+			Link Item         ` json:"data"     `
+		}                   ` json:"children" `
+	}                     ` json:"data"     `
 }
 
 // Get fetches the most recent Items posted to the specified subreddit.
@@ -53,13 +53,13 @@ func Get(reddit string) ([]Item, error) {
 		return nil, err
 	}
 
-	items := make([]Item, len(r.Data1.Children))
-	for i, child := range r.Data1.Children {
-		items[i] = child.Data2
+	items := make([]Item, len(r.Data.Children))
+	for i, child := range r.Data.Children {
+		items[i] = child.Link
 	}
 	return items, nil
 }
 
 func (i Item) String() string {
-  return fmt.Sprintf( "[%d] %s (%s)\nPermalink: %s\nAuthor: %s\n", i.Score, i.Title, i.URL, i.Permalink, i.Author)
+  return fmt.Sprintf( "[%3d] %s (%s)\nPermalink: %s\nAuthor: %s\n", i.Score, i.Title, i.URL, i.Permalink, i.Author)
 }
